@@ -46,10 +46,10 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME
 });
 
-db.connect(() => console.log('✅ Connecté à MySQL'));
+db.connect(() => console.log('Connecté à MySQL'));
 
 // ===================== ROUTES =====================
-app.get('/api/test', (req, res) => res.json({ status: 'Backend OK ✅' }));
+app.get('/api/test', (req, res) => res.json({ status: 'Backend OK fonctionne' }));
 
 // AUTH
 app.post('/api/register', async (req, res) => {
@@ -186,5 +186,5 @@ app.get('/api/youtube-search', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Serveur backend démarré sur http://localhost:${PORT}`);
+  console.log(`Serveur backend démarré sur http://localhost:${PORT}`);
 });

@@ -27,7 +27,7 @@ export default function Login() {
       alert('✅ Connexion réussie !\nRedirection vers le tableau de bord...');
       router.push('/'); // redirection Next.js
     } catch (err: any) {
-      console.error('❌ Erreur login :', err);
+      console.error(' Erreur login :', err);
       setError(err.response?.data?.message || err.message || 'Email ou mot de passe incorrect');
     } finally {
       setLoading(false);
