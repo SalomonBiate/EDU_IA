@@ -1,18 +1,15 @@
-const mysql = require('mysql2');
+// backend/config/db.js
+const { PrismaClient } = require('@prisma/client')
 
-const db = mysql.createConnection({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'edu_app'
-});
+// Meilleure pratique : singleton pour éviter plusieurs instances Prisma
+const globalForPrisma = globalThis
 
-db.connect((err) => {
-  if (err) {
-    console.error('❌ Erreur connexion MySQL :', err);
-  } else {
-    console.log('✅ Connecté à MySQL avec succès');
-  }
-});
+const prisma = globalForPrisma.prisma ?? new PrismaClient({
+  log: process.env.NODE_ENV === 'development' ? ['query'] : [],
+})
 
-module.exports = db;
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = prisma
+}
+
+module.exports = prisma

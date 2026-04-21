@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"   // chemin recommandé maintenant
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String
+  email     String   @unique
+  password  String
+  xp        Int      @default(0)
+  level     Int      @default(1)
+  createdAt DateTime @default(now())
+
+  summaries   Summary[]
+  quizResults QuizResult[]
+}
+
+model Summary {
+  id           Int      @id @default(autoincrement())
+  title        String?
+  originalText String?
+  summaryText  String?
+  createdAt    DateTime @default(now())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  quizResults QuizResult[]
+}
+
+model QuizResult {
+  id        Int      @id @default(autoincrement())
+  score     Int?
+  xpEarned  Int?
+  createdAt DateTime @default(now())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  summaryId Int
+  summary   Summary @relation(fields: [summaryId], references: [id], onDelete: Cascade)
+}

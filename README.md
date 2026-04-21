@@ -18,7 +18,7 @@ Application web pour :
 3. Frontend : `cd frontend && npm install && npm run dev`
 
 ## Déploiement
-- Frontend : Vercel
-- Backend : Render
+- Frontend : 
+- Backend : 
 
-Auteur : Salomon Biate (Nomolas)
+Auteur : Salomon Biate 
