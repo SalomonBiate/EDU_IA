@@ -37,7 +37,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const res = await axios.post('http://localhost:5000/api/login', { email, password });
+    // Correction de l'URL : ajout de /auth/
+    const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
     const { token: newToken, user: newUser } = res.data;
     localStorage.setItem('token', newToken);
     localStorage.setItem('user', JSON.stringify(newUser));
@@ -46,7 +47,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const register = async (username: string, email: string, password: string) => {
-    await axios.post('http://localhost:5000/api/register', { username, email, password });
+    // Correction de l'URL : ajout de /auth/
+    await axios.post('http://localhost:5000/api/auth/register', { username, email, password });
   };
 
   const logout = () => {
